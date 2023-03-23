@@ -125,6 +125,39 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.filters-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 50px;
+}
+.filter-btn{
+	text-align: center;
+	color: #1D6154;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 19px;
+	padding: 5px 15px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	background: none;
+	transition: .4s ease-in-out;
+}
+
+.active{
+	background-color: #1D6154;
+	color: #FFF;
+}
+
+.filter-btn:hover{
+	color: #FFF;
+	background-color: #1D6154;
+}
+
+
+
 .gallery {
 	width: 100%;
 	display: grid;
