@@ -152,6 +152,11 @@ nav li a{
 	height: 36px;
 }
 
+.erreur-msg{
+	text-align: center;
+	color: red;
+}
+
 .mdp-oublie{
 	text-align: center;
 	font-size: 14px;
