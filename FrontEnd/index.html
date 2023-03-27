@@ -66,12 +66,25 @@
           <p>modifier</p>
         </div>
       </section>
+
       <section id="portfolio">
-        <div>
+        <div class="portfolio-title">
           <h2>Mes Projets</h2>
-          <div class="project-edit edit-btn">
+          <div class="project-edit edit-btn modal-trigger">
             <i class="fa-regular fa-pen-to-square"></i>
             <p>modifier</p>
+          </div>
+          <div class="modal-container">
+            <div class="overlay modal-trigger"></div>
+            <div class="modal">
+              <button class="modal-trigger close-modal">
+                <i class="fa-solid fa-xmark" style="color: #000000"></i>
+              </button>
+              <h1>Galerie photo</h1>
+              <div class="modal-gallery"></div>
+              <button class="addPicture-btn">Ajouter une photo</button>
+              <p class="delete-gallery">Supprimer la galerie</p>
+            </div>
           </div>
         </div>
         <div class="filters-container">

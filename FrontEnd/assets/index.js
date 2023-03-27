@@ -2,6 +2,11 @@ const gallery = document.querySelector(".gallery");
 const filtersContainer = document.querySelector(".filters-container");
 const editBanner = document.querySelector(".modify-banner");
 const editBtn = document.querySelectorAll(".edit-btn");
+const modalContainer = document.querySelector(".modal-container");
+const modalTriggers = document.querySelectorAll(".modal-trigger");
+const modalGallery = document.querySelector(".modal-gallery");
+const header = document.querySelector("header");
+const portfolio = document.getElementById("portfolio");
 const log = document.querySelector(".log-link-title");
 const filters = new Set();
 
@@ -84,13 +89,14 @@ function filtres(categories) {
   });
 }
 
-console.log(typeof sessionStorage.login);
+
 
 //Affiche le mode edition si connecté
 function editMode() {
   if (localStorage.login === "true") {
-    console.log("Vous êtes connecté !");
-    console.log(sessionStorage.token);
+    filtersContainer.style.setProperty("visibility", "hidden");
+    header.style.setProperty("margin-top", "100px");
+    portfolio.style.setProperty("margin-top", "150px");
     editBanner.style.setProperty("display", "flex");
     log.innerText = "logout";
     editBtn.forEach((btn) => {
@@ -101,12 +107,24 @@ function editMode() {
   }
 }
 
+// Au clic sur "logout", supprime dans le local storage login: true et token
 log.addEventListener("click", () => {
   localStorage.removeItem("login");
   localStorage.removeItem("token");
   log.innerText = "login";
 });
 
+//Appel des différentes fonctions
 fetchGet();
 fetchCategory();
 editMode();
+
+modalTriggers.forEach((trigger) =>
+  trigger.addEventListener("click", toggleModal)
+);
+
+function toggleModal() {
+  modalContainer.classList.toggle("target");
+}
+
+

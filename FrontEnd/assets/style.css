@@ -58,6 +58,11 @@ body {
 
 
 .modify-banner{	
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
 	background-color: #000;
 	color: white;
 	height: 59px;
@@ -96,16 +101,124 @@ body {
 }
 
 .intro-btn{
-	left: 550px;
-	top: 555px;
+	left: 60px;
+	bottom: -40px;
 
 }
 
 .project-edit{
-	right: 850px;
-	top: 605px;
+	right: 365px;
+	top: 10px;
 	
 }
+/* modal */
+.modal-container{
+	/* display: none; */
+	visibility: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	transition: visibility 0.4s;
+}
+
+.modal-container.target{
+	visibility: visible;
+}
+
+.overlay{
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #333333d3;
+	transition: opacity 0.4s 0.2s ease-out;
+}
+.modal-container.target .overlay{
+	opacity: 1;
+	transition: opacity 0.4s  ease-out;
+}
+
+
+.modal{
+	opacity: 0;
+	width: 95%;
+	max-width: 630px;
+	min-width: 300px;
+	height: 731px;
+	padding: 30px;
+	background: #FFF;
+	border-radius: 5px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, calc(-50% - 50px));
+	transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.modal-container.target .modal{
+	opacity: 1;
+	transform: translate(-50%, -50%);
+	transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
+}
+
+.close-modal{
+	padding: 8px 10px; 
+	border: none;
+	background: none;
+	font-size: 20px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.modal h1{
+	font-family: 'Work Sans';
+	font-size: 26px;
+	color: #000000;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 46px;
+	font-weight: 500;
+}
+
+.modal-gallery{
+	height: 70%;
+	width: 75%;
+	border-bottom: 1px solid #B3B3B3;
+	margin: auto;
+	margin-bottom: 20px;
+
+}
+
+.addPicture-btn{
+	display: block;
+	width: 40%;
+	height: 36px;
+	margin: 24px auto;
+	background-color: #1D6154;
+	border-radius: 60px;
+	color: white;
+	font-family: 'Syne';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 17px;
+	cursor: pointer;
+}
+
+.delete-gallery{
+	font-family: 'Syne';
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17px;
+	color: red;
+	text-align: center;
+	cursor: pointer;
+}
+
 
 header {
 	display: flex;
@@ -223,6 +336,7 @@ nav li a{
 #introduction {
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 #introduction figure {
 	flex: 1
@@ -242,6 +356,10 @@ nav li a{
 
 #introduction p {
 	margin-bottom: 0.5em;
+}
+
+.portfolio-title{
+	position: relative;
 }
 #portfolio h2 {
 	text-align: center;
