@@ -1,7 +1,11 @@
 const gallery = document.querySelector(".gallery");
 const filtersContainer = document.querySelector(".filters-container");
+const editBanner = document.querySelector(".modify-banner");
+const editBtn = document.querySelectorAll(".edit-btn");
+const log = document.querySelector(".log-link-title");
 const filters = new Set();
 
+console.log(log);
 // Fetch Works
 const fetchGet = async () => {
   // lien avec l'API
@@ -82,3 +86,16 @@ function filtres(categories) {
 
 fetchGet();
 fetchCategory();
+
+console.log(typeof sessionStorage.login);
+if (sessionStorage.login === "true") {
+  console.log("Vous êtes connecté !");
+  console.log(sessionStorage.token);
+  editBanner.style.setProperty("display", "flex");
+  log.innerText = "logout";
+  editBtn.forEach((btn) => {
+    btn.style.setProperty("display", "flex");
+  });
+} else {
+  console.log("Vous n'êtes pas connecté ! Identifiez-vous !");
+}

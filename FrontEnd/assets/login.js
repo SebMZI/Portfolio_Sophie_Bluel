@@ -17,8 +17,12 @@ function fetchPost(userLogins) {
     .then((res) => {
       if (res.message === "user not found") {
         errorMsg.innerText = "Erreur dans l’identifiant ou le mot de passe";
+        console.log(
+          "Connexion Impossible : Erreur Identifiant ou Mot de passe"
+        );
       } else {
         sessionStorage.token = res.token;
+        sessionStorage.login = true;
         window.location.href = "index.html";
         console.log("Connexion réussie");
       }
