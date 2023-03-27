@@ -21,8 +21,8 @@ function fetchPost(userLogins) {
           "Connexion Impossible : Erreur Identifiant ou Mot de passe"
         );
       } else {
-        sessionStorage.token = res.token;
-        sessionStorage.login = true;
+        localStorage.token = res.token;
+        localStorage.login = true;
         window.location.href = "index.html";
         console.log("Connexion réussie");
       }

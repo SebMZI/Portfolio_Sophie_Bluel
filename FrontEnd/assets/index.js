@@ -84,18 +84,29 @@ function filtres(categories) {
   });
 }
 
+console.log(typeof sessionStorage.login);
+
+//Affiche le mode edition si connecté
+function editMode() {
+  if (localStorage.login === "true") {
+    console.log("Vous êtes connecté !");
+    console.log(sessionStorage.token);
+    editBanner.style.setProperty("display", "flex");
+    log.innerText = "logout";
+    editBtn.forEach((btn) => {
+      btn.style.setProperty("display", "flex");
+    });
+  } else {
+    console.log("Vous n'êtes pas connecté ! Identifiez-vous !");
+  }
+}
+
+log.addEventListener("click", () => {
+  localStorage.removeItem("login");
+  localStorage.removeItem("token");
+  log.innerText = "login";
+});
+
 fetchGet();
 fetchCategory();
-
-console.log(typeof sessionStorage.login);
-if (sessionStorage.login === "true") {
-  console.log("Vous êtes connecté !");
-  console.log(sessionStorage.token);
-  editBanner.style.setProperty("display", "flex");
-  log.innerText = "logout";
-  editBtn.forEach((btn) => {
-    btn.style.setProperty("display", "flex");
-  });
-} else {
-  console.log("Vous n'êtes pas connecté ! Identifiez-vous !");
-}
+editMode();
