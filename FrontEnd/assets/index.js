@@ -4,7 +4,7 @@ const editBanner = document.querySelector(".modify-banner");
 const editBtn = document.querySelectorAll(".edit-btn");
 const modalContainer = document.querySelector(".modal-container");
 const modalTriggers = document.querySelectorAll(".modal-trigger");
-const modalGallery = document.querySelector(".modal-gallery");
+const modalGallery = document.querySelector(".modal-gallery-work");
 const header = document.querySelector("header");
 const portfolio = document.getElementById("portfolio");
 const log = document.querySelector(".log-link-title");
@@ -23,6 +23,7 @@ const fetchGet = async () => {
 
   // Ajout des travaux
   galleryWork(works);
+  workGallery(works);
 };
 
 // Fetch Catégories
@@ -43,9 +44,23 @@ function galleryWork(works) {
     const post = document.createElement("figure");
     post.innerHTML = `
     <img src=${work.imageUrl} alt="image de ${work.title}">
-    <h3>${work.title}</h3> 
+    <figcaption>${work.title}</figcaption> 
     `;
     gallery.appendChild(post);
+  });
+}
+
+function workGallery(works) {
+  works.map((work) => {
+    const workPost = document.createElement("figure");
+    workPost.innerHTML = `
+    <div class="workgallery-container">
+      <i class="fa-solid fa-trash-can trash-icon"></i>
+      <img class="modal-image" src=${work.imageUrl} alt="image de ${work.title}">
+    </div>    
+    <figcaption>éditer</figcaption> 
+    `;
+    modalGallery.appendChild(workPost);
   });
 }
 
@@ -89,8 +104,6 @@ function filtres(categories) {
   });
 }
 
-
-
 //Affiche le mode edition si connecté
 function editMode() {
   if (localStorage.login === "true") {
@@ -114,17 +127,15 @@ log.addEventListener("click", () => {
   log.innerText = "login";
 });
 
-//Appel des différentes fonctions
-fetchGet();
-fetchCategory();
-editMode();
+function toggleModal() {
+  modalContainer.classList.toggle("target");
+}
 
 modalTriggers.forEach((trigger) =>
   trigger.addEventListener("click", toggleModal)
 );
 
-function toggleModal() {
-  modalContainer.classList.toggle("target");
-}
-
-
+//Appel des différentes fonctions
+fetchGet();
+fetchCategory();
+editMode();
