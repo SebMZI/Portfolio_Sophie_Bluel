@@ -80,14 +80,47 @@
               <button class="modal-trigger close-modal">
                 <i class="fa-solid fa-xmark" style="color: #000000"></i>
               </button>
-              <h1>Galerie photo</h1>
-              <div class="modal-gallery">
-                <div class="modal-gallery-work">
-                  
+
+              <div class="pictures-gallery">
+                <h1 class="gallery-title">Galerie photo</h1>
+                <div class="modal-gallery">
+                  <div class="modal-gallery-work"></div>
                 </div>
+                <button class="addPicture-btn">Ajouter une photo</button>
+                <p class="delete-gallery">Supprimer la galerie</p>
               </div>
-              <button class="addPicture-btn">Ajouter une photo</button>
-              <p class="delete-gallery">Supprimer la galerie</p>
+
+              <div class="add-picture-gallery">
+                <i class="fa-solid fa-arrow-left return-arrow"></i>
+                <h1 class="add-title">Ajout photo</h1>
+                <form class="addPictures">
+                  <div class="addImage-container">
+                    <i class="fa-regular fa-image image-icon"></i>
+                    <label class="label-imageFile" for="file"
+                      >+ Ajout photo</label
+                    >
+                    <input class="btn-addImage" type="file" id="file" />
+                    <p class="file-type">jpg, png : 4mo max</p>
+                  </div>
+                  <div class="input-container">
+                    <label for="add-title">Titre</label>
+                    <input type="text" id="add-title" />
+                  </div>
+                  <div class="input-container">
+                    <label for="add-categories">Catégorie</label>
+                    <select name="categorie" id="add-categories">
+                      <option value=""></option>
+                      <option value="Objets">Objets</option>
+                      <option value="Appartements">Appartements</option>
+                      <option value="Hotels_Restaurants">
+                        Hôtels & Restaurants
+                      </option>
+                    </select>
+                  </div>
+                </form>
+
+                <button class="validate-btn">Valider</button>
+              </div>
             </div>
           </div>
         </div>
