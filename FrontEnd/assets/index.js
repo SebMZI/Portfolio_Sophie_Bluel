@@ -12,11 +12,19 @@ const modal1 = document.querySelector(".pictures-gallery");
 const modal2 = document.querySelector(".add-picture-gallery");
 const addPictureBtn = document.querySelector(".addPicture-btn");
 const returnArrow = document.querySelector(".return-arrow");
+const addPicture = document.querySelector(".addPictures");
+const addImageModal = document.querySelector(".btn-addImage");
+const addTitle = document.getElementById("add-title");
+const addCategorie = document.getElementById("add-categories");
+const previewImg = document.querySelector(".preview-img");
+const imgContainer = document.querySelector(".img-container");
 const filters = new Set();
-let tokenValue = localStorage.token;
-console.log(tokenValue);
 
-console.log(log);
+let tokenValue = localStorage.token;
+let imageForm = "";
+let categoryForm = "";
+let titleForm;
+
 // Fetch Works
 const fetchGet = async () => {
   // lien avec l'API
@@ -60,6 +68,7 @@ const fetchDelete = async (id) => {
     })
     .catch((err) => console.log("Il y a eu une erreur sur le Fetch: " + err));
 };
+
 // Implémente les Images dans la gallery
 function galleryWork(works) {
   works.map((work) => {
@@ -144,6 +153,7 @@ function editMode() {
     editBtn.forEach((btn) => {
       btn.style.setProperty("display", "flex");
     });
+    console.log("Vous êtes connecté ! Enjoy !");
   } else {
     console.log("Vous n'êtes pas connecté ! Identifiez-vous !");
   }
@@ -169,11 +179,17 @@ function showAddPictureModal() {
   modal2.style.display = "flex";
 }
 
-addPictureBtn.addEventListener("click", showAddPictureModal);
+addPictureBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  showAddPictureModal();
+});
 
 function returnModal1() {
   modal1.style.display = "block";
   modal2.style.display = "none";
+  previewImg.src = "";
+  previewImg.style.setProperty("display", "none");
+  imgContainer.style.setProperty("display", "flex");
 }
 
 returnArrow.addEventListener("click", returnModal1);
@@ -182,9 +198,52 @@ function deleteImage(imgValue) {
   const deleteIcon = document.querySelectorAll(".trash-icon");
   deleteIcon.forEach((delIcon) => {
     delIcon.addEventListener("click", (e) => {
+      e.preventDefault();
       fetchDelete(parseInt(e.target.id));
       console.log(typeof parseInt(e.target.id));
     });
+  });
+}
+
+function addImage() {
+  addImageModal.addEventListener("input", (e) => {
+    //console.log(addImageModal.files[0]);
+    imageForm = e.target.files[0];
+    const img = URL.createObjectURL(imageForm);
+    previewImg.src = img;
+    previewImg.style.setProperty("display", "block");
+    imgContainer.style.setProperty("display", "none");
+  });
+
+  addTitle.addEventListener("input", (e) => {
+    titleForm = e.target.value;
+  });
+
+  addCategorie.addEventListener("input", (e) => {
+    categoryForm = e.target.selectedIndex;
+  });
+
+  addPicture.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    console.log(imageForm, titleForm, categoryForm);
+    formData.append("image", imageForm);
+    formData.append("title", titleForm);
+    formData.append("category", categoryForm);
+    console.log(formData.entries());
+
+    fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${tokenValue}`,
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log("Il y a eu une erreur sur le Fetch: " + err));
   });
 }
 
@@ -192,3 +251,4 @@ function deleteImage(imgValue) {
 fetchGet();
 fetchCategory();
 editMode();
+addImage();
