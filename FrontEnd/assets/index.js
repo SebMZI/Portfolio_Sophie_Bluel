@@ -14,10 +14,13 @@ const addPictureBtn = document.querySelector(".addPicture-btn");
 const returnArrow = document.querySelector(".return-arrow");
 const addPicture = document.querySelector(".addPictures");
 const addImageModal = document.querySelector(".btn-addImage");
+const validateBtn = document.querySelector(".validate-btn");
 const addTitle = document.getElementById("add-title");
 const addCategorie = document.getElementById("add-categories");
 const previewImg = document.querySelector(".preview-img");
 const imgContainer = document.querySelector(".img-container");
+const errorAdd = document.querySelector(".error-add");
+const deleteMsg = document.querySelector(".delete-msg");
 const filters = new Set();
 
 let tokenValue = localStorage.token;
@@ -64,6 +67,9 @@ const fetchDelete = async (id) => {
   })
     .then((response) => response.json())
     .then((res) => {
+      if (res.confirmation === "OK") {
+        id.remove();
+      }
       console.log(res);
     })
     .catch((err) => console.log("Il y a eu une erreur sur le Fetch: " + err));
@@ -194,17 +200,25 @@ function returnModal1() {
 
 returnArrow.addEventListener("click", returnModal1);
 
+//Delete
 function deleteImage(imgValue) {
   const deleteIcon = document.querySelectorAll(".trash-icon");
   deleteIcon.forEach((delIcon) => {
     delIcon.addEventListener("click", (e) => {
       e.preventDefault();
+      const idRemove = document.getElementById(e.target.id);
       fetchDelete(parseInt(e.target.id));
-      console.log(typeof parseInt(e.target.id));
+      console.log(e.target.id);
+      idRemove.remove();
+      deleteMsg.innerText = "Supprimé !";
+      setTimeout(() => {
+        deleteMsg.innerText = "";
+      }, 3000);
     });
   });
 }
 
+//Add
 function addImage() {
   addImageModal.addEventListener("input", (e) => {
     //console.log(addImageModal.files[0]);
@@ -225,25 +239,41 @@ function addImage() {
 
   addPicture.addEventListener("submit", (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    console.log(imageForm, titleForm, categoryForm);
-    formData.append("image", imageForm);
-    formData.append("title", titleForm);
-    formData.append("category", categoryForm);
-    console.log(formData.entries());
+    if (imageForm && titleForm && categoryForm) {
+      const formData = new FormData();
+      console.log(imageForm, titleForm, categoryForm);
+      formData.append("image", imageForm);
+      formData.append("title", titleForm);
+      formData.append("category", categoryForm);
+      console.log(formData.entries());
 
-    fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${tokenValue}`,
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res);
+      fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${tokenValue}`,
+        },
+        body: formData,
       })
-      .catch((err) => console.log("Il y a eu une erreur sur le Fetch: " + err));
+        .then((response) => response.json())
+        .then((res) => {
+          errorAdd.innerText = "Posté !";
+          errorAdd.style.color = "green";
+
+          setTimeout(() => {
+            errorAdd.innerText = "";
+          }, 4000);
+        })
+        .catch((err) =>
+          console.log("Il y a eu une erreur sur le Fetch: " + err)
+        );
+    } else {
+      errorAdd.innerText = "Veuillez remplir tous les champs.";
+      errorAdd.style.color = "red";
+      setTimeout(() => {
+        errorAdd.innerText = "";
+      }, 4000);
+      console.log("Tous les champs ne sont pas remplis !");
+    }
   });
 }
 

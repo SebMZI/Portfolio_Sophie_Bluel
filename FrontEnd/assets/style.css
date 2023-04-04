@@ -277,6 +277,10 @@ body {
 	color: white;
 	cursor: pointer;
 }
+.validate-btn:hover  {
+	background: #1D6154;
+	transition: 0.4s ease-out;
+}
 
 .return-arrow{
 	position: absolute;
@@ -372,8 +376,17 @@ body {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+.error-add{
+	text-align: center;
+}
 
+.delete-msg {
+	position: relative;
+	top: -25px;
+	color: green;
+	text-align: center;
 
+}
 
 .delete-gallery{
 	font-family: 'Syne';
