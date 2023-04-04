@@ -15,13 +15,16 @@ function fetchPost(userLogins) {
   })
     .then((response) => response.json())
     .then((res) => {
-      if (res.message === "user not found") {
+      localStorage.token = res.token;
+      if (
+        res.message === "user not found" ||
+        localStorage.token === "undefined"
+      ) {
         errorMsg.innerText = "Erreur dans l’identifiant ou le mot de passe";
         console.log(
           "Connexion Impossible : Erreur Identifiant ou Mot de passe"
         );
       } else {
-        localStorage.token = res.token;
         localStorage.login = true;
         window.location.href = "index.html";
         console.log("Connexion réussie");

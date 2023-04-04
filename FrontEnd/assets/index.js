@@ -260,7 +260,7 @@ function addImage() {
         .then((res) => {
           errorAdd.innerText = "Posté !";
           errorAdd.style.color = "green";
-
+          console.log(res);
           setTimeout(() => {
             errorAdd.innerText = "";
           }, 4000);
