@@ -79,7 +79,7 @@ const fetchDelete = async (id) => {
 function galleryWork(works) {
   works.map((work) => {
     const post = document.createElement("figure");
-    post.setAttribute("id", `${work.id}`);
+    post.setAttribute("id", `${work.id}.`);
     post.innerHTML = `
     <img src=${work.imageUrl} alt="image de ${work.title}">
     <figcaption>${work.title}</figcaption> 
@@ -207,9 +207,11 @@ function deleteImage(imgValue) {
     delIcon.addEventListener("click", (e) => {
       e.preventDefault();
       const idRemove = document.getElementById(e.target.id);
+      const portfolioRemove = document.getElementById(e.target.id + ".");
       fetchDelete(parseInt(e.target.id));
       console.log(e.target.id);
       idRemove.remove();
+      portfolioRemove.remove();
       deleteMsg.innerText = "Supprimé !";
       setTimeout(() => {
         deleteMsg.innerText = "";
