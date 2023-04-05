@@ -1,7 +1,9 @@
 
 # Portfolio Sophie Bluel
 Ceci est un projet OpenClassrooms, il s'agit du projet 6. 
-
+Intéraction avec une API.
+Connexion 
+Ajout/Suppression d'image
 
 
 
