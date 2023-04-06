@@ -32,7 +32,7 @@ let titleForm;
 // Fetch Works
 const fetchGet = async () => {
   // lien avec l'API
-  await fetch("http://localhost:5678/api/works")
+  await fetch("http://" + window.location.hostname +":5678/api/works")
     .then((res) => res.json().then((data) => (works = data)))
     .catch((err) => {
       console.log(`Erreur : ${err}`);
@@ -46,7 +46,7 @@ const fetchGet = async () => {
 
 // Fetch Catégories
 const fetchCategory = async () => {
-  await fetch("http://localhost:5678/api/categories")
+  await fetch("http://" + window.location.hostname +":5678/api/categories")
     .then((res) => res.json().then((cat) => (categories = cat)))
     .catch((err) => {
       console.log(`Erreur : ${err}`);
@@ -58,7 +58,7 @@ const fetchCategory = async () => {
 
 // Fetch suppression travaux
 const fetchDelete = async (id) => {
-  await fetch("http://localhost:5678/api/works/" + id, {
+  await fetch("http://" + window.location.hostname +":5678/api/works/" + id, {
     method: "DELETE",
     headers: {
       accept: "application/json",
@@ -254,7 +254,7 @@ function addImage() {
       formData.append("category", categoryForm);
       console.log(formData.entries());
       //Fetch ajout des travaux
-      fetch("http://localhost:5678/api/works", {
+      fetch("http://" + window.location.hostname +":5678/api/works", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${tokenValue}`,
