@@ -9,7 +9,7 @@ let mdp = "";
 
 // Fetch POST pour Login
 function fetchPost(userLogins) {
-  fetch("http://localhost:5678/api/users/login", {
+  fetch("http://" + window.location.hostname +":5678/api/users/login", {
     method: "POST",
     headers: { accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify(userLogins),
